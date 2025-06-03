@@ -1286,25 +1286,25 @@ func listVolumes(ctx echo.Context) error {
 			inspectStr := string(inspectOutput)
 
 			// Extract mountpoint
-			if mountStart := strings.Index(inspectStr, "\"Mountpoint\": \""); mountStart > 0 {
+			if mountStart := strings.Index(inspectStr, "\"Mountpoint\": \""); mountStart >= 0 {
 				mountStart += 15 // Length of "Mountpoint": "
-				if mountEnd := strings.Index(inspectStr[mountStart:], "\""); mountEnd > 0 {
+				if mountEnd := strings.Index(inspectStr[mountStart:], "\""); mountEnd >= 0 {
 					mountpoint = inspectStr[mountStart : mountStart+mountEnd]
 				}
 			}
 
 			// Extract creation time if available
-			if createdStart := strings.Index(inspectStr, "\"CreatedAt\": \""); createdStart > 0 {
+			if createdStart := strings.Index(inspectStr, "\"CreatedAt\": \""); createdStart >= 0 {
 				createdStart += 14 // Length of "CreatedAt": "
-				if createdEnd := strings.Index(inspectStr[createdStart:], "\""); createdEnd > 0 {
+				if createdEnd := strings.Index(inspectStr[createdStart:], "\""); createdEnd >= 0 {
 					created = inspectStr[createdStart : createdStart+createdEnd]
 				}
 			}
 
 			// Extract labels
-			if labelsStart := strings.Index(inspectStr, "\"Labels\": {"); labelsStart > 0 {
+			if labelsStart := strings.Index(inspectStr, "\"Labels\": {"); labelsStart >= 0 {
 				labelsStart += 11 // Length of "Labels": {
-				if labelsEnd := strings.Index(inspectStr[labelsStart:], "}"); labelsEnd > 0 {
+				if labelsEnd := strings.Index(inspectStr[labelsStart:], "}"); labelsEnd >= 0 {
 					labelsSection := inspectStr[labelsStart : labelsStart+labelsEnd]
 					labelPairs := strings.Split(labelsSection, ",")
 					for _, pair := range labelPairs {
@@ -1423,25 +1423,25 @@ func listNetworks(ctx echo.Context) error {
 			inspectStr := string(inspectOutput)
 
 			// Extract IPAM driver
-			if driverStart := strings.Index(inspectStr, "\"Driver\": \""); driverStart > 0 {
+			if driverStart := strings.Index(inspectStr, "\"Driver\": \""); driverStart >= 0 {
 				driverStart += 11 // Length of "Driver": "
-				if driverEnd := strings.Index(inspectStr[driverStart:], "\""); driverEnd > 0 {
+				if driverEnd := strings.Index(inspectStr[driverStart:], "\""); driverEnd >= 0 {
 					ipamDriver = inspectStr[driverStart : driverStart+driverEnd]
 				}
 			}
 
 			// Extract subnet
-			if subnetStart := strings.Index(inspectStr, "\"Subnet\": \""); subnetStart > 0 {
+			if subnetStart := strings.Index(inspectStr, "\"Subnet\": \""); subnetStart >= 0 {
 				subnetStart += 11 // Length of "Subnet": "
-				if subnetEnd := strings.Index(inspectStr[subnetStart:], "\""); subnetEnd > 0 {
+				if subnetEnd := strings.Index(inspectStr[subnetStart:], "\""); subnetEnd >= 0 {
 					subnet = inspectStr[subnetStart : subnetStart+subnetEnd]
 				}
 			}
 
 			// Extract gateway
-			if gatewayStart := strings.Index(inspectStr, "\"Gateway\": \""); gatewayStart > 0 {
+			if gatewayStart := strings.Index(inspectStr, "\"Gateway\": \""); gatewayStart >= 0 {
 				gatewayStart += 12 // Length of "Gateway": "
-				if gatewayEnd := strings.Index(inspectStr[gatewayStart:], "\""); gatewayEnd > 0 {
+				if gatewayEnd := strings.Index(inspectStr[gatewayStart:], "\""); gatewayEnd >= 0 {
 					gateway = inspectStr[gatewayStart : gatewayStart+gatewayEnd]
 				}
 			}
